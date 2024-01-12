@@ -38,12 +38,13 @@ jobs:
         id: meta
         uses: docker/metadata-action@5
         with:
-          images: ghcr.io/${{ github.repository_owner }}/securechat/${{ env.IMAGE_NAME }}
+          images: ghcr.io/${{ github.repository_owner }}/securechat/securechat-server
           tags: |
             type=semver,pattern={{version}}
       - name: 이미지 빌드 & 푸쉬
         uses: docker/build-push-action@5
         with:
+          context: .
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
